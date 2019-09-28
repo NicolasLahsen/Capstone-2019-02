@@ -29,20 +29,20 @@ for key in tiempos_adyacentes.keys():
     for llave in tiempos_adyacentes[key].keys():
         Nodos.append(key)
         Arcos.append([key,llave])
-        Distancia[(key,llave)]= tiempos_adyacentes[key][llave]
-        print(f'el tiempo entre {key} y {llave} es de {tiempos_adyacentes[key][llave]} minutos')
-print(N)
-print(Arcos)
+        if key != llave:
+            Distancia[(key,llave)]= tiempos_adyacentes[key][llave]
+            print(f'el tiempo entre {key} y {llave} es de {tiempos_adyacentes[key][llave]} minutos')
 
 G = nx.DiGraph()
 for i in N.keys():
     G.add_node(N[i],pos= Posiciones[i])
 pos = nx.get_node_attributes(G,'pos')
-nx.draw_networkx_nodes(G,pos,nodelist=N,node_color='b',node_size=400,alpha=1)
+nx.draw_networkx_nodes(G,pos,nodelist=N,node_color='y',node_size=900,alpha=1)
 nx.draw_networkx_edges(G,pos,edgelist=Arcos,width=2,alpha=0.5,edge_color='k')
 nx.draw_networkx_labels(G,pos,N,font_size=6,font_color='black')
 nx.draw_networkx_edge_labels(G, pos, edge_labels = Distancia, label_pos =0.3,rotate=False,font_size =7)
 plt.axis('off')
-plt.title('Grafo comunas adyacentes')
+plt.title('Grafo Comunas Adyacentes')
 plt.show()
+
 
