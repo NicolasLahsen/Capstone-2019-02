@@ -22,7 +22,7 @@ def addMin(dia_inicial, hora_inicial, minutos_por_agregar):
         else:
             dia = 'sabado'
     minutos = minutos - (minutos // 60) * 60
-    string = f'{hora}:{minutos}'
+    string = f'{str(hora).zfill(2)}:{str(minutos).zfill(2)}'
     return dia, string
 
 
@@ -102,13 +102,13 @@ class Falla:
     def definir_grupo(self):
         if self.tipo in [1, 4, 8]:
             self.grupo = 'A'
-            self.tiempo_callcenter = round(np.random.gamma(5, 2))
+            self.tiempo_callcenter = np.random.gamma(5, 2)
         elif self.tipo in [3, 5, 7]:
             self.grupo = 'B'
-            self.tiempo_callcenter = round(np.random.gamma(4.5, 2.5))
+            self.tiempo_callcenter = np.random.gamma(4.5, 2.5)
         else:
             self.grupo = 'C'
-            self.tiempo_callcenter = round(np.random.gamma(4, 2))
+            self.tiempo_callcenter = np.random.gamma(4, 2)
 
     # t_ajuste distribuyen normal
     # t_recambio distribuye normal
@@ -117,65 +117,63 @@ class Falla:
 
         if self.tipo == 1:
 
-            self.tiempo_diagnostico = round(np.random.gamma(15, 1))
+            self.tiempo_diagnostico = np.random.gamma(15, 1)
             if self.es_recambio:
                 # t de recambio
-                self.tiempo_resolucion = round(np.random.normal(120, 20))
+                self.tiempo_resolucion = np.random.normal(120, 20)
             else:
                 # t de ajuste
-                self.tiempo_resolucion = round(np.random.normal(55, 10))
+                self.tiempo_resolucion = np.random.normal(55, 10)
 
         elif self.tipo == 2:
-            self.tiempo_diagnostico = round(np.random.gamma(7, 3))
+            self.tiempo_diagnostico = np.random.gamma(7, 3)
             if self.es_recambio:
-                self.tiempo_resolucion = round(np.random.normal(140, 25))
+                self.tiempo_resolucion = np.random.normal(140, 25)
 
             else:
-                self.tiempo_resolucion = round(np.random.normal(90, 20))
-
-
+                self.tiempo_resolucion = np.random.normal(90, 20)
 
         elif self.tipo == 3:
-            self.tiempo_diagnostico = round(np.random.gamma(8, 1))
+            self.tiempo_diagnostico = np.random.gamma(8, 1)
             if not self.es_recambio:
-                self.tiempo_resolucion = round(np.random.normal(100, 15))
+                self.tiempo_resolucion = np.random.normal(100, 15)
             else:
-                self.tiempo_resolucion = round(np.random.normal(80, 8))
+                self.tiempo_resolucion = np.random.normal(80, 8)
 
         elif self.tipo == 4:
-            self.tiempo_diagnostico = round(np.random.gamma(8, 2))
+            self.tiempo_diagnostico = np.random.gamma(8, 2)
             if not self.es_recambio:
-                self.tiempo_resolucion = round(np.random.normal(45, 5))
+                self.tiempo_resolucion = np.random.normal(45, 5)
             else:
-                self.tiempo_resolucion = round(np.random.normal(120, 20))
+                self.tiempo_resolucion = np.random.normal(120, 20)
 
         elif self.tipo == 5:
-            self.tiempo_diagnostico = round(np.random.gamma(7, 3))
+            self.tiempo_diagnostico = np.random.gamma(7, 3)
             if not self.es_recambio:
-                self.tiempo_resolucion = round(np.random.normal(35, 4))
+                self.tiempo_resolucion = np.random.normal(35, 4)
             else:
-                self.tiempo_resolucion = round(np.random.normal(150, 30))
+                self.tiempo_resolucion = np.random.normal(150, 30)
 
         elif self.tipo == 6:
-            self.tiempo_diagnostico = round(np.random.gamma(10, 2))
+            self.tiempo_diagnostico = np.random.gamma(10, 2)
             if not self.es_recambio:
-                self.tiempo_resolucion = round(np.random.normal(70, 8))
+                self.tiempo_resolucion = np.random.normal(70, 8)
             else:
-                self.tiempo_resolucion = round(np.random.normal(120, 25))
+                self.tiempo_resolucion = np.random.normal(120, 25)
 
         elif self.tipo == 7:
-            self.tiempo_diagnostico = round(np.random.gamma(9, 2))
+            self.tiempo_diagnostico = np.random.gamma(9, 2)
             if not self.es_recambio:
-                self.tiempo_resolucion = round(np.random.normal(120, 15))
+                self.tiempo_resolucion = np.random.normal(120, 15)
             else:
-                self.tiempo_resolucion = round(np.random.normal(135, 24))
+                self.tiempo_resolucion = np.random.normal(135, 24)
 
         elif self.tipo == 8:
-            self.tiempo_diagnostico = round(np.random.gamma(8, 2))
+            self.tiempo_diagnostico = np.random.gamma(8, 2)
             if not self.es_recambio:
-                self.tiempo_resolucion = round(np.random.normal(45, 6))
+                self.tiempo_resolucion = np.random.normal(45, 6)
             else:
-                self.tiempo_resolucion = round(np.random.normal(120, 14))
+                self.tiempo_resolucion = np.random.normal(120, 14)
 
     def definir_horas(self):
         #self.dia_llamada, self.hora_salida_callcenter = addMin(self.hora_entrada_callcenter, self.tiempo_callcenter)
@@ -190,6 +188,9 @@ class Falla:
                   dia: {self.dia_llamada}
                   hora inicio: {self.hora_llamada}
                   tiempo call center: {self.tiempo_callcenter}
-                  hora salida call center: {addMin(self.dia_llamada, self.hora_llamada, self.tiempo_callcenter)}
+                  hora salida call center: {self.hora_salida_callcenter}
                   tiempo diagnostico: {self.tiempo_diagnostico}
                   tiempo resolucion: {self.tiempo_resolucion}'''
+
+    def __repr__(self):
+        return self.__str__()
