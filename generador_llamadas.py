@@ -71,3 +71,5 @@ def generar_llamados(params, horas):
 
 
 generar_llamados(params, horas)
+
+parametros = params

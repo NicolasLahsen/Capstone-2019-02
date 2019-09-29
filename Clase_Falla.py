@@ -10,7 +10,7 @@ def addMin(dia_inicial, hora_inicial, minutos_por_agregar):
     minutos = int(h_i_sep[1])
     hora += minutos_por_agregar // 60
     if hora >= 24:
-        hora = minutos_por_agregar// 60
+        hora = minutos_por_agregar // 60
         if dia == 'lunes':
             dia = 'martes'
         elif dia == 'martes':
@@ -47,6 +47,9 @@ class Falla:
         self.tiempo_diagnostico = None          # tiempo que se demora en diagnosticar la falla
         self.hora_resolucion = None             # hora en que termina el llamado
         self.tiempo_resolucion = None           # tiempo que se demora en resolver el problema / AJUSTE O RECAMBIO
+        self.minutos = None
+        self.estado = None
+        self.minutos_totales()
         self.definir_tipo()
         self.definir_grupo()
         self.definir_tiempos_prob()
@@ -134,7 +137,6 @@ class Falla:
                 self.tiempo_resolucion = round(np.random.normal(90, 20))
 
 
-
         elif self.tipo == 3:
             self.tiempo_diagnostico = round(np.random.gamma(8, 1))
             if not self.es_recambio:
@@ -183,6 +185,22 @@ class Falla:
         #self.dia_llamada, self.hora_diagnostico = addMin(self.hora_atencion, self.tiempo_diagnostico)
         #self.dia_llamada, self.hora_resolucion = addMin(self.hora_diagnostico, self.tiempo_resolucion)
         pass
+
+    def minutos_totales(self):
+        minutos_totales = 0
+        if self.dia_llamada == 'lunes':
+            minutos_totales += 0
+        elif self.dia_llamada == 'martes':
+            minutos_totales += 1440
+        elif self.dia_llamada == 'miercoles':
+            minutos_totales += 2880
+        elif self.dia_llamada == 'jueves':
+            minutos_totales += 4320
+        elif self.dia_llamada == 'viernes':
+            minutos_totales += 5760
+        hora_minuto = self.hora_llamada.split(':')
+        minutos_totales += int(int(hora_minuto[0]) * 60) + int(hora_minuto[1])
+        self.minutos = minutos_totales
 
     def __str__(self):
         return f'''Falla:
