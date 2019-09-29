@@ -1,39 +1,39 @@
 import numpy as np
 import random
 
-nodes = ('Vitacura', 'Lo Barnechea', 'Las Condes', 'La Reina', 'Providencia', 'Nunoa', 'Macul','Santiago',
-         'Estacion Central','San Miguel','San Joaquin','Penalolen','La Florida')
+nodes = ('vitacura', 'lo barnechea', 'las condes', 'la reina', 'providencia', 'nunoa', 'macul','santiago',
+         'estacion central','san miguel','san joaquin','penalolen','la florida')
 
 # Estas son los tiempos de viaje entre comunas adyacentes según Maps en horario fuera de punto
-tiempos_fdp = {'Vitacura': {'Vitacura': 11, 'Lo Barnechea': 15, 'Las Condes': 15, 'Providencia': 19},
-            'Lo Barnechea': {'Vitacura': 18, 'Lo Barnechea': 13 , 'Las Condes': 16 },
-            'Las Condes': {'Vitacura': 26, 'Lo Barnechea': 25, 'Las Condes': 18, 'La Reina': 15, 'Providencia': 20},
-            'La Reina': {'Las Condes': 20, 'La Reina': 12, 'Providencia': 20, 'Nunoa': 22, 'Penalolen': 15},
-            'Providencia': {'Vitacura': 17, 'Las Condes': 18, 'La Reina': 25, 'Providencia': 13, 'Nunoa': 11, 'Santiago': 20},
-            'Nunoa': {'La Reina': 21, 'Providencia': 14, 'Nunoa': 14, 'Macul': 15, 'Santiago': 30, 'San Joaquin': 25, 'Penalolen': 15},
-            'Macul': {'Nunoa': 13, 'Macul': 16,'San Joaquin': 17, 'Penalolen': 14, 'La Florida': 15},
-            'Santiago': {'Providencia': 25, 'Nunoa': 30, 'Santiago': 18, 'Estacion Central': 14, 'San Miguel': 15, 'San Joaquin': 22},
-            'Estacion Central': {'Santiago': 16, 'Estacion Central': 17},
-            'San Miguel': {'Santiago': 20, 'San Miguel': 12, 'San Joaquin': 7},
-            'San Joaquin': {'Nunoa': 20, 'Macul': 12, 'Santiago': 21, 'San Miguel': 10, 'San Joaquin': 14 , 'La Florida': 18},
-            'Penalolen': {'La Reina': 15, 'Nunoa': 13, 'Macul': 16, 'Penalolen': 20, 'La Florida': 17},
-            'La Florida': {'Macul': 14, 'San Joaquin': 15, 'Penalolen': 16, 'La Florida': 30}}
+tiempos_fdp = {'vitacura': {'vitacura': 11, 'lo barnechea': 15, 'las condes': 15, 'providencia': 19},
+            'lo barnechea': {'vitacura': 18, 'lo barnechea': 13 , 'las condes': 16 },
+            'las condes': {'vitacura': 26, 'lo barnechea': 25, 'las condes': 18, 'la reina': 15, 'providencia': 20},
+            'la reina': {'las condes': 20, 'la reina': 12, 'providencia': 20, 'nunoa': 22, 'penalolen': 15},
+            'providencia': {'vitacura': 17, 'las condes': 18, 'la reina': 25, 'providencia': 13, 'nunoa': 11, 'santiago': 20},
+            'nunoa': {'la reina': 21, 'providencia': 14, 'nunoa': 14, 'macul': 15, 'santiago': 30, 'san joaquin': 25, 'penalolen': 15},
+            'macul': {'nunoa': 13, 'macul': 16,'san joaquin': 17, 'penalolen': 14, 'la florida': 15},
+            'santiago': {'providencia': 25, 'nunoa': 30, 'santiago': 18, 'estacion central': 14, 'san miguel': 15, 'san joaquin': 22},
+            'estacion central': {'santiago': 16, 'estacion central': 17},
+            'san miguel': {'santiago': 20, 'san miguel': 12, 'san joaquin': 7},
+            'san joaquin': {'nunoa': 20, 'macul': 12, 'santiago': 21, 'san miguel': 10, 'san joaquin': 14 , 'la florida': 18},
+            'penalolen': {'la reina': 15, 'nunoa': 13, 'macul': 16, 'penalolen': 20, 'la florida': 17},
+            'la florida': {'macul': 14, 'san joaquin': 15, 'penalolen': 16, 'la florida': 30}}
 
 # tiempos en horario punta, con variabilidad en la media y desv estandar minima.
 
-tiempos_hp ={'Vitacura': {'Vitacura': round(np.random.normal(random.uniform(1.15, 1.35)*11, 2)), 'Lo Barnechea': round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'Las Condes': round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'Providencia': round(np.random.normal(random.uniform(1.15, 1.35)*19, 2))},
-            'Lo Barnechea': {'Vitacura': round(np.random.normal(random.uniform(1.15, 1.35)*18, 2)), 'Lo Barnechea': round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)) , 'Las Condes': round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)) },
-            'Las Condes': {'Vitacura': round(np.random.normal(random.uniform(1.15, 1.35)*26, 2)), 'Lo Barnechea': round(np.random.normal(random.uniform(1.15, 1.35)*25, 2)), 'Las Condes': round(np.random.normal(random.uniform(1.15, 1.35)*18, 2)), 'La Reina': round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'Providencia': round(np.random.normal(random.uniform(1.15, 1.35)*20, 2))},
-            'La Reina': {'Las Condes': round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'La Reina': round(np.random.normal(random.uniform(1.15, 1.35)*12, 2)), 'Providencia': round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'Nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*22, 2)), 'Penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2))},
-            'Providencia': {'Vitacura':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2)), 'Las Condes':  round(np.random.normal(random.uniform(1.15, 1.35)*18, 2)), 'La Reina':  round(np.random.normal(random.uniform(1.15, 1.35)*25, 2)), 'Providencia':  round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)), 'Nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*11, 2)), 'Santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2))},
-            'Nunoa': {'La Reina':  round(np.random.normal(random.uniform(1.15, 1.35)*21, 2)), 'Providencia':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'Nunoa': round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'Macul':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'Santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*30, 2)), 'San Joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*25, 2)), 'Penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2))},
-            'Macul': {'Nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)), 'Macul':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)),'San Joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2)), 'Penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'La Florida':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2))},
-            'Santiago': {'Providencia': round(np.random.normal(random.uniform(1.15, 1.35)*25,2)), 'Nunoa': round(np.random.normal(random.uniform(1.15, 1.35)*30,2)), 'Santiago': round(np.random.normal(random.uniform(1.15, 1.35)*18,2)), 'Estacion Central': round(np.random.normal(random.uniform(1.15, 1.35)*14,2)), 'San Miguel': round(np.random.normal(random.uniform(1.15, 1.35)*15,2)), 'San Joaquin': round(np.random.normal(random.uniform(1.15, 1.35)*22,2))},
-            'Estacion Central': {'Santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)), 'Estacion Central':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2))},
-            'San Miguel': {'Santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'San Miguel':  round(np.random.normal(random.uniform(1.15, 1.35)*12, 2)), 'San Joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*7, 2))},
-            'San Joaquin': {'Nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'Macul':  round(np.random.normal(random.uniform(1.15, 1.35)*12, 2)), 'Santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*21, 2)), 'San Miguel':  round(np.random.normal(random.uniform(1.15, 1.35)*10, 2)), 'San Joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)) , 'La Florida':  round(np.random.normal(random.uniform(1.15, 1.35)*18, 2))},
-            'Penalolen': {'La Reina':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'Nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)), 'Macul':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)), 'Penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'La Florida':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2))},
-            'La Florida': {'Macul':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'San Joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'Penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)), 'La Florida':  round(np.random.normal(random.uniform(1.15, 1.35)*30, 2))}}
+tiempos_hp ={'vitacura': {'vitacura': round(np.random.normal(random.uniform(1.15, 1.35)*11, 2)), 'lo barnechea': round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'las condes': round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'providencia': round(np.random.normal(random.uniform(1.15, 1.35)*19, 2))},
+            'lo barnechea': {'vitacura': round(np.random.normal(random.uniform(1.15, 1.35)*18, 2)), 'lo barnechea': round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)) , 'las condes': round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)) },
+            'las condes': {'vitacura': round(np.random.normal(random.uniform(1.15, 1.35)*26, 2)), 'lo barnechea': round(np.random.normal(random.uniform(1.15, 1.35)*25, 2)), 'las condes': round(np.random.normal(random.uniform(1.15, 1.35)*18, 2)), 'la reina': round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'providencia': round(np.random.normal(random.uniform(1.15, 1.35)*20, 2))},
+            'la reina': {'las condes': round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'la reina': round(np.random.normal(random.uniform(1.15, 1.35)*12, 2)), 'providencia': round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*22, 2)), 'penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2))},
+            'providencia': {'vitacura':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2)), 'las condes':  round(np.random.normal(random.uniform(1.15, 1.35)*18, 2)), 'la reina':  round(np.random.normal(random.uniform(1.15, 1.35)*25, 2)), 'providencia':  round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)), 'nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*11, 2)), 'santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2))},
+            'nunoa': {'la reina':  round(np.random.normal(random.uniform(1.15, 1.35)*21, 2)), 'providencia':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'nunoa': round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'macul':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*30, 2)), 'san joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*25, 2)), 'penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2))},
+            'macul': {'nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)), 'macul':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)),'san joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2)), 'penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'la florida':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2))},
+            'santiago': {'providencia': round(np.random.normal(random.uniform(1.15, 1.35)*25,2)), 'nunoa': round(np.random.normal(random.uniform(1.15, 1.35)*30,2)), 'santiago': round(np.random.normal(random.uniform(1.15, 1.35)*18,2)), 'estacion central': round(np.random.normal(random.uniform(1.15, 1.35)*14,2)), 'san miguel': round(np.random.normal(random.uniform(1.15, 1.35)*15,2)), 'san joaquin': round(np.random.normal(random.uniform(1.15, 1.35)*22,2))},
+            'estacion central': {'santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)), 'estacion central':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2))},
+            'san miguel': {'santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'san miguel':  round(np.random.normal(random.uniform(1.15, 1.35)*12, 2)), 'san joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*7, 2))},
+            'san joaquin': {'nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'macul':  round(np.random.normal(random.uniform(1.15, 1.35)*12, 2)), 'santiago':  round(np.random.normal(random.uniform(1.15, 1.35)*21, 2)), 'san miguel':  round(np.random.normal(random.uniform(1.15, 1.35)*10, 2)), 'san joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)) , 'la florida':  round(np.random.normal(random.uniform(1.15, 1.35)*18, 2))},
+            'penalolen': {'la reina':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)), 'macul':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)), 'penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'la florida':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2))},
+            'la florida': {'macul':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'san joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)), 'la florida':  round(np.random.normal(random.uniform(1.15, 1.35)*30, 2))}}
 
 
 def Dijkstra(nodes, tiempos_fdp, current):
@@ -96,7 +96,7 @@ for i in nodes:
 #print(tdv_hp)
 
 # completa los datos de la matriz que genera el Dijkstra, agregando los tiempos del "autoloop"
-# o el viaje dentro de la misma zona (Vitacura a Vitacura)
+# o el viaje dentro de la misma zona (vitacura a vitacura)
 def completar_matriz(diccionario, tipo):
 
 
@@ -121,8 +121,8 @@ def getTime(matriz,inicio,final):
 """
 print(tdv_fdp)
 print(tdv_hp)
-print(getTime(tdv_hp,   "Vitacura","Vitacura"))
-print(getTime(tdv_fdp,  "Vitacura","Vitacura"))
-print(getTime(tdv_fdp,  "Vitacura","San Joaquin"))
-print(getTime(tdv_hp,   "Vitacura","San Joaquin"))
+print(getTime(tdv_hp,   "vitacura","vitacura"))
+print(getTime(tdv_fdp,  "vitacura","vitacura"))
+print(getTime(tdv_fdp,  "vitacura","san joaquin"))
+print(getTime(tdv_hp,   "vitacura","san joaquin"))
 """
