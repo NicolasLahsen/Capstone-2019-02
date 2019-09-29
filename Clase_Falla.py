@@ -22,6 +22,8 @@ def addMin(dia_inicial, hora_inicial, minutos_por_agregar):
         else:
             dia = 'sabado'
     minutos = minutos - (minutos // 60) * 60
+    minutos = str(minutos).zfill(2)
+    hora = str(hora).zfill(2)
     string = f'{hora}:{minutos}'
     return dia, string
 

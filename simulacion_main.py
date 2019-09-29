@@ -7,6 +7,9 @@ def sortear_por_minutos(elem):
 
 
 n = 0
+promesas_incumplidas = 0
+tiempo_incumplimiento = 0
+trabajos_incumplidos = 0
 
 while n <= 4:
 
@@ -23,8 +26,32 @@ while n <= 4:
     for element in event_line:
         print(element[0])
 
-    while current_time <= 7200:
+    m = 0
 
+    '''while current_time <= 7200:
 
+        if event_line[m][1] == 'contestar_llamada':
+            pass
+
+        elif event_line[m][1] == 'terminar_llamada':
+            pass
+
+        elif event_line[m][1] == 'asignar_tecnico':
+            pass
+
+        elif event_line[m][1] == 'ir_central':
+            pass
+
+        elif event_line[m][1] == 'llegar_terreno':
+            pass
+
+        elif event_line[m][1] == 'terminar_diagnostico':
+            pass
+
+        elif event_line[m][1] == 'realizar_ajuste':
+            pass
+
+        elif event_line[m][1] == 'realizar_recambio':
+            pass'''
 
     n += 1
