@@ -52,9 +52,9 @@ def asignar_horas(params: dict, horas: list):
                     r = np.random.uniform(
                         horas[repeticion_franja][0],
                         horas[repeticion_franja][1])
-                    minuto = int(round((r*60), 0))
-                    dicc2["llamados"].append(
-                        minutos_a_horas(minuto))
+                    minuto = r*60
+                    dicc2["llamados"].append(minuto)
+                        #minutos_a_horas(minuto))
                     # print(minutos_a_horas(minuto))
                 dicc2["llamados"].sort()
             print(f'LLAMADOS DIA {dia}, {comuna}: {dicc2["llamados"]}')
@@ -71,3 +71,5 @@ def generar_llamados(params, horas):
 
 
 generar_llamados(params, horas)
+
+parametros = params

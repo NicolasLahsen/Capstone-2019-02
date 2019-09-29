@@ -86,12 +86,16 @@ for comuna in tiempos_fdp.keys():
     #print(Dijkstra(nodes, tiempos_fdp, comuna))
 #print(tdv_fdp)
 
+matriz_fuera_punta = tdv_fdp
+
 #print("\n\n")
 #tiempos de viaje horario punta
 tdv_hp = {}
 for i in nodes:
     tdv_hp.update({i: DijkstraVariable(i)})
     #print(DijkstraVariable(i))
+
+matriz_punta = tdv_hp
 
 #print(tdv_hp)
 

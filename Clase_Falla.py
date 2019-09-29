@@ -27,6 +27,9 @@ def addMin(dia_inicial, hora_inicial, minutos_por_agregar):
 
 
 class Falla:
+
+    class_counter = 0
+
     def __init__(self, comuna, dia_llamada, hora_llamada):
 
         self.tipo = None
@@ -35,18 +38,25 @@ class Falla:
         self.es_recambio = None
 
         self.comuna = comuna
-        self.hora_llamada = hora_llamada        # hora cuando se genero la llamada
-        self.dia_llamada = dia_llamada          # dia en que se genero la llamada
+        self.hora_llamada = hora_llamada  # hora cuando se genero la llamada
+        self.dia_llamada = dia_llamada  # dia en que se genero la llamada
 
-        self.hora_entrada_callcenter = None     # OJO: no siempre entraría al call center al mi
-        self.tiempo_callcenter = None           # tiempo que pasa en callcenter
-        self.hora_salida_callcenter = None                 # hora de salida de callcenter
-        self.hora_atencion = None               # hora en que llega a la casa
-        self.tiempo_atencion = None             # tiempo que demora desde que le dan el llamado hasta  llegar a la casa
-        self.hora_diagnostico = None            # hora en que terina de diagnosticar la falla
-        self.tiempo_diagnostico = None          # tiempo que se demora en diagnosticar la falla
-        self.hora_resolucion = None             # hora en que termina el llamado
-        self.tiempo_resolucion = None           # tiempo que se demora en resolver el problema / AJUSTE O RECAMBIO
+        self.hora_entrada_callcenter = None  # OJO: no siempre entraría al call center al mi
+        self.tiempo_callcenter = None  # tiempo que pasa en callcenter
+        self.hora_salida_callcenter = None  # hora de salida de callcenter
+        self.hora_atencion = None  # hora en que llega a la casa
+        self.tiempo_atencion = None  # tiempo que demora desde que le dan el llamado hasta  llegar a la casa
+        self.hora_diagnostico = None  # hora en que termina de diagnosticar la falla
+        self.tiempo_diagnostico = None  # tiempo que se demora en diagnosticar la falla
+        self.hora_resolucion = None  # hora en que termina el llamado
+        self.tiempo_resolucion = None  # tiempo que se demora en resolver el problema / AJUSTE O RECAMBIO
+        self.minutos = int(hora_llamada)
+        self.estado = None
+        self.tiempo_total = 0
+        self.minuto_inicial = int(hora_llamada)
+        self.id = Falla.class_counter
+        Falla.class_counter += 1
+        #self.minutos_totales()
         self.definir_tipo()
         self.definir_grupo()
         self.definir_tiempos_prob()
@@ -181,6 +191,23 @@ class Falla:
         #self.dia_llamada, self.hora_diagnostico = addMin(self.hora_atencion, self.tiempo_diagnostico)
         #self.dia_llamada, self.hora_resolucion = addMin(self.hora_diagnostico, self.tiempo_resolucion)
         pass
+
+    def minutos_totales(self):
+        minutos_totales = 0
+        if self.dia_llamada == 'lunes':
+            minutos_totales += 0
+        elif self.dia_llamada == 'martes':
+            minutos_totales += 1440
+        elif self.dia_llamada == 'miercoles':
+            minutos_totales += 2880
+        elif self.dia_llamada == 'jueves':
+            minutos_totales += 4320
+        elif self.dia_llamada == 'viernes':
+            minutos_totales += 5760
+        hora_minuto = self.hora_llamada.split(':')
+        minutos_totales += int(int(hora_minuto[0]) * 60) + int(hora_minuto[1])
+        self.minutos = minutos_totales
+        self.minuto_inicial = minutos_totales
 
     def __str__(self):
         return f'''Falla:

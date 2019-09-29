@@ -276,3 +276,19 @@ params = {
 
 
 horas = [(0, 6), (6, 8), (8, 12), (12, 16), (16, 19), (19, 24)]
+
+horario_punta = []
+
+for i in range(360, 1260):
+    horario_punta.append(i)
+for i in range(1800, 2700):
+    horario_punta.append(i)
+for i in range(3240, 4140):
+    horario_punta.append(i)
+for i in range(4680, 5580):
+    horario_punta.append(i)
+for i in range(6120, 7020):
+    horario_punta.append(i)
+
+horario_punta_final = horario_punta
+
