@@ -35,6 +35,7 @@ tiempos_hp ={'Vitacura': {'Vitacura': round(np.random.normal(random.uniform(1.15
             'Penalolen': {'La Reina':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'Nunoa':  round(np.random.normal(random.uniform(1.15, 1.35)*13, 2)), 'Macul':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)), 'Penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*20, 2)), 'La Florida':  round(np.random.normal(random.uniform(1.15, 1.35)*17, 2))},
             'La Florida': {'Macul':  round(np.random.normal(random.uniform(1.15, 1.35)*14, 2)), 'San Joaquin':  round(np.random.normal(random.uniform(1.15, 1.35)*15, 2)), 'Penalolen':  round(np.random.normal(random.uniform(1.15, 1.35)*16, 2)), 'La Florida':  round(np.random.normal(random.uniform(1.15, 1.35)*30, 2))}}
 
+
 def Dijkstra(nodes, tiempos_fdp, current):
 
     unvisited = {node: None for node in nodes} #using None as +inf
@@ -77,14 +78,12 @@ def DijkstraVariable(nodo):
         current, currentDistance = sorted(candidates, key= lambda x: x[1])[0]
     return visited
 
-
 # outputs de los Dijkstras
 #tiempos de viaje fuera de punta
 tdv_fdp = {}
 for comuna in tiempos_fdp.keys():
     tdv_fdp.update({comuna: Dijkstra(nodes, tiempos_fdp, comuna)})
     #print(Dijkstra(nodes, tiempos_fdp, comuna))
-
 #print(tdv_fdp)
 
 #print("\n\n")
@@ -96,8 +95,10 @@ for i in nodes:
 
 #print(tdv_hp)
 
+# completa los datos de la matriz que genera el Dijkstra, agregando los tiempos del "autoloop"
+# o el viaje dentro de la misma zona (Vitacura a Vitacura)
+def completar_matriz(diccionario, tipo):
 
-def printear_matriz(diccionario, tipo):
 
     for key in diccionario.keys():
         for llave in diccionario[key].keys():
@@ -105,9 +106,23 @@ def printear_matriz(diccionario, tipo):
                 diccionario[key][llave] = tiempos_hp[key][llave]
             elif key == llave and tipo == 'no_peak':
                 diccionario[key][llave] = tiempos_fdp[key][llave]
-            print(f'el tiempo entre {key} y {llave} es de {diccionario[key][llave]} minutos')
+    return diccionario
+    #print(f'el tiempo entre {key} y {llave} es de {diccionario[key][llave]} minutos')
 
 
-printear_matriz(tdv_fdp, 'peak')
+completar_matriz(tdv_fdp, 'peak')
+completar_matriz(tdv_hp, 'no_peak')
 
-printear_matriz(tdv_hp, 'no_peak')
+# Necesita que le pases la matriz correspondiente al horario (punta o fuera de punta)
+def getTime(matriz,inicio,final):
+    tiempo = matriz[inicio][final]
+    return tiempo
+
+"""
+print(tdv_fdp)
+print(tdv_hp)
+print(getTime(tdv_hp,   "Vitacura","Vitacura"))
+print(getTime(tdv_fdp,  "Vitacura","Vitacura"))
+print(getTime(tdv_fdp,  "Vitacura","San Joaquin"))
+print(getTime(tdv_hp,   "Vitacura","San Joaquin"))
+"""
