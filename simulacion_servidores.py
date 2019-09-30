@@ -5,6 +5,8 @@ from itertools import count
 from Clase_Falla import Falla
 from operator import attrgetter
 from sty import fg
+from generador_llamadas import parametros
+import csv
 
 
 def hora_a_minuto(hora: str):
@@ -26,7 +28,6 @@ class Simulacion:
     def actualizar_servidores(self, tiempo):
         for servidor in self.servidores:
             servidor.actualizar_servidor(tiempo)
-        
 
     def run(self):
         for evento in self.eventos:
@@ -46,6 +47,7 @@ class Simulacion:
                         servidor.llegada_falla(evento[0], self.tiempo)
         max_t = max(list(filter(lambda x: x.falla, self.servidores)), key=attrgetter('falla.hora_salida_callcenter'))
         self.actualizar_servidores(max_t.falla.hora_salida_callcenter)
+        return self.output
                 
 
 class Servidor:
@@ -61,12 +63,14 @@ class Servidor:
         self.falla = falla
         self.falla.hora_entrada_callcenter = tiempo
         self.falla.hora_salida_callcenter = tiempo + self.falla.tiempo_callcenter
-        print(f"Ha llegado una{fg.red} FALLA{fg.rs} al servidor {fg.blue}{self.id_}{fg.rs} en {fg.blue}{str(self.falla.hora_entrada_callcenter)}{fg.rs}, generada en {fg.blue}{str(self.falla.hora_llamada)}{fg.rs}")
+        self.falla.minuto = self.falla.hora_salida_callcenter
+        #print(f"Ha llegado una{fg.red} FALLA{fg.rs} al servidor {fg.blue}{self.id_}{fg.rs} en {fg.blue}{str(self.falla.hora_entrada_callcenter)}{fg.rs}, generada en {fg.blue}{str(self.falla.hora_llamada)}{fg.rs}")
 
     def salida_falla(self):
+
         self.simulacion.output.append(
             (self.falla, "asignar_tecnico"))  # actualizo el output
-        print(f"El servidor {fg.blue}{self.id_}{fg.rs} ha quedado {fg.green}DISPONIBLE{fg.rs} en {fg.blue}{self.falla.hora_salida_callcenter}{fg.rs}")
+        #print(f"El servidor {fg.blue}{self.id_}{fg.rs} ha quedado {fg.green}DISPONIBLE{fg.rs} en {fg.blue}{self.falla.hora_salida_callcenter}{fg.rs}")
         self.falla = None  # Libera el servidor
 
     def actualizar_servidor(self, tiempo):
@@ -89,8 +93,34 @@ eventos = [(Falla("[comuna]", "[dia]", 480.565), "contestar_llamada"),
         (Falla("[comuna]", "[dia]", 480.565), "contestar_llamada"),
         (Falla("[comuna]", "[dia]", 480.565), "contestar_llamada"),
         (Falla("[comuna]", "[dia]", 480.565), "contestar_llamada"), 
-        (Falla("[comuna]", "[dia]", 490.2365), "contestar_llamada")]
+        (Falla("[comuna]", "[dia]", 7199), "contestar_llamada")]
 
 
 sim = Simulacion(5, eventos)
-sim.run()
+OP = sim.run()
+#print(OP)
+
+event_line = []
+
+for dia in parametros.keys():
+    for comuna in parametros[dia].keys():
+        for llamada in parametros[dia][comuna]['llamados']:
+            event_line.append((Falla(comuna, dia, llamada), 'contestar_llamada'))
+
+'''simulacion_remota = []
+for i in range(0, 10000):
+    sim = Simulacion(5, event_line)
+    sm = sim.run()
+    simulacion_remota.append(sm)'''
+sim2 = Simulacion(5, event_line)
+sim3 = Simulacion(5, event_line)
+sim4 = Simulacion(5, event_line)
+sim5 = Simulacion(5, event_line)
+sm2 = sim2.run()
+sm3 = sim3.run()
+sm4 = sim4.run()
+sm5 = sim5.run()
+simulacion_remota = [sm2, sm3, sm4, sm5]
+#print(simulacion_remota)
+
+

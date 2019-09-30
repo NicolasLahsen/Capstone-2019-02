@@ -43,17 +43,17 @@ class Falla:
 
         self.hora_entrada_callcenter = None  # OJO: no siempre entraría al call center al mi
         self.tiempo_callcenter = None  # tiempo que pasa en callcenter
-        self.hora_salida_callcenter = None  # hora de salida de callcenter
+        self.hora_salida_callcenter = 0  # hora de salida de callcenter
         self.hora_atencion = None  # hora en que llega a la casa
         self.tiempo_atencion = None  # tiempo que demora desde que le dan el llamado hasta  llegar a la casa
         self.hora_diagnostico = None  # hora en que termina de diagnosticar la falla
         self.tiempo_diagnostico = None  # tiempo que se demora en diagnosticar la falla
         self.hora_resolucion = None  # hora en que termina el llamado
         self.tiempo_resolucion = None  # tiempo que se demora en resolver el problema / AJUSTE O RECAMBIO
-        self.minutos = int(hora_llamada)
+        self.minutos = hora_llamada
         self.estado = None
         self.tiempo_total = 0
-        self.minuto_inicial = int(hora_llamada)
+        self.minuto_inicial = hora_llamada
         self.id = Falla.class_counter
         Falla.class_counter += 1
         #self.minutos_totales()
@@ -193,10 +193,8 @@ class Falla:
         pass
 
     def minutos_totales(self):
-        minutos_totales = 0
-        if self.dia_llamada == 'lunes':
-            minutos_totales += 0
-        elif self.dia_llamada == 'martes':
+        minutos_totales = int(self.minuto_inicial)
+        if self.dia_llamada == 'martes':
             minutos_totales += 1440
         elif self.dia_llamada == 'miercoles':
             minutos_totales += 2880
@@ -204,10 +202,20 @@ class Falla:
             minutos_totales += 4320
         elif self.dia_llamada == 'viernes':
             minutos_totales += 5760
-        hora_minuto = self.hora_llamada.split(':')
-        minutos_totales += int(int(hora_minuto[0]) * 60) + int(hora_minuto[1])
         self.minutos = minutos_totales
         self.minuto_inicial = minutos_totales
+
+    def minutos_totales_procesados(self):
+        minutos_totales = int(self.hora_salida_callcenter)
+        if self.dia_llamada == 'martes':
+            minutos_totales += 1440
+        elif self.dia_llamada == 'miercoles':
+            minutos_totales += 2880
+        elif self.dia_llamada == 'jueves':
+            minutos_totales += 4320
+        elif self.dia_llamada == 'viernes':
+            minutos_totales += 5760
+        self.minutos = minutos_totales
 
     def __str__(self):
         return f'''Falla:
