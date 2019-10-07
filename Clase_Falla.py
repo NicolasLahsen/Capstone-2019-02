@@ -56,7 +56,7 @@ class Falla:
         self.minuto_inicial = hora_llamada
         self.id = Falla.class_counter
         Falla.class_counter += 1
-        #self.minutos_totales()
+        self.minutos_totales()
         self.definir_tipo()
         self.definir_grupo()
         self.definir_tiempos_prob()
