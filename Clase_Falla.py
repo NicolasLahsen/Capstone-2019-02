@@ -221,11 +221,13 @@ class Falla:
         return f'''Falla:
                   comuna: {self.comuna}
                   dia: {self.dia_llamada}
-                  hora inicio: {self.hora_llamada}
+                  hora inicio: {self.minuto_inicial}
                   tiempo call center: {self.tiempo_callcenter}
                   hora salida call center: {self.hora_salida_callcenter}
                   tiempo diagnostico: {self.tiempo_diagnostico}
-                  tiempo resolucion: {self.tiempo_resolucion}'''
+                  tiempo resolucion: {self.tiempo_resolucion}
+                  hora llegada terreno: {self.hora_atencion}
+                  tiempo total: {self.tiempo_total}'''
 
     def __repr__(self):
         return self.__str__()
