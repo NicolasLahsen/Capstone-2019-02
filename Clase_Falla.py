@@ -54,6 +54,7 @@ class Falla:
         self.estado = None
         self.tiempo_total = 0
         self.minuto_inicial = hora_llamada
+        self.hora_asignacion = None
         self.id = Falla.class_counter
         Falla.class_counter += 1
         self.minutos_totales()

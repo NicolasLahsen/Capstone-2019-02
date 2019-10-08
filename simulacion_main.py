@@ -193,6 +193,7 @@ def simulacion():
                                 if tecnico2.id == tecnico.id:
                                     tecnico2.falla = event_line[m][0].id
                                     tecnico2.ocupado = True
+                                    tecnico2.hora_asignacion = current_time
                                     #print(f'Tecnico {tecnico2.id} ocupado. Tiempo actual: {current_time}.')
                                     nuevo_evento = event_line[m][0]
                                     event_line.pop(m)
