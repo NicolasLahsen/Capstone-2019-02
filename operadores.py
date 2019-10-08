@@ -72,7 +72,7 @@ def instanciar_operadores():
 
 def disponibilidad_operadores(lista, current_time):
     for operador in lista:
-        if not operador.ocupado and int(current_time) in operador.hora_turno:
+        if not operador.ocupado and (int(current_time) in operador.hora_turno):
             # si encuentra un tecnico disponible retorna verdadero, que esté en turno
             return True
     return False

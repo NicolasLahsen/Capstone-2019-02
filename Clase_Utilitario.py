@@ -105,7 +105,7 @@ def instanciar_tecnicos():
 
 def disponibilidad_tecnicos(lista, current_time):
     for tecnico in lista:
-        if not tecnico.ocupado and int(current_time) in tecnico.hora_turno:
+        if not tecnico.ocupado and (int(current_time) in tecnico.hora_turno):
             # si encuentra un tecnico disponible retorna verdadero, que esté en turno
             return True
     return False
