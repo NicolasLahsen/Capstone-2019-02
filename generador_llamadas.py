@@ -57,8 +57,8 @@ def asignar_horas(params: dict, horas: list):
                         #minutos_a_horas(minuto))
                     # print(minutos_a_horas(minuto))
                 dicc2["llamados"].sort()
-            print(f'LLAMADOS DIA {dia}, {comuna}: {dicc2["llamados"]}')
-        print('\n\n')
+            #print(f'LLAMADOS DIA {dia}, {comuna}: {dicc2["llamados"]}')
+        #print('\n\n')
 
 
 def minutos_a_horas(minutos: int):

@@ -10,6 +10,7 @@ import csv
 import sys
 import time
 
+
 def cumple_promesas(lista_de_fallas):
     promesas_incumplidas = 0
     tiempo_incumplimiento = 0
@@ -386,28 +387,17 @@ def simulacion():
                           tuplas_datos[4]]
     resultados_texto = f'Prueba,{len(eventos_terminados)},{eventos_sabado},{tuplas_datos[0]},{tuplas_datos[1]},' \
                        f'{tuplas_datos[3]},{tuplas_datos[4]},{tuplas_datos[5]},{minutos_utilitarios_desperdiciados},' \
-                       f'{tiempo_desperdiciado_dia}\n'
+                       f'{tiempo_desperdiciado_dia},{busquedas_kit}\n'
     # print(resultados_finales)
 
     with open('resultados.csv', 'a') as fd:
         fd.write(resultados_texto)
 
-sys.stdout.write("\033[1;31m")
-sys.stdout.write('0x8007063f - FATAL ERROR: could not find a SATA port. Data corrupted. Please reboot your pc.\n')
-time.sleep(2)
-sys.stdout.write("Rebooting pc. Don't turn off or unplug the power cord.")
-for i in range(9):
-    time.sleep(1)
-    sys.stdout.write("\rRebooting pc. Don't turn off or unplug the power cord." + '.'*(i%3))
-sys.stdout.write('\nwena cabros era broma\n')
-time.sleep(1)
-sys.stdout.write('Los quiero bai\n')
-sys.stdout.write("\033[0;32m")
+
 print('COMIENZA LA SIMULACION')
 for i in range(50):
     sys.stdout.write("\033[1;34m")
     simulacion()
-    sys.stdout.write('\r['+'-'*i+' '*(49-i)+']'+ "Progress: "+str(int(100*(i+1)/50))+"%")
+    sys.stdout.write('\r['+'-'*i+' '*(49-i)+']' + "Progress: "+str(int(100*(i+1)/50))+"%")
     sys.stdout.flush()
 sys.stdout.write("\033[1;31m")
-sys.stdout.write()
