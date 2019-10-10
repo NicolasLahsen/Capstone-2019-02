@@ -90,15 +90,15 @@ class Utilitario:
 
 def instanciar_tecnicos():
     lista = []
-    for i in range(3):
+    for i in range(4):
         lista.append(Utilitario('san joaquin', 1, 1))
         lista.append(Utilitario('san joaquin', 1, 2))
-    for i in range(5):
+    for i in range(7):
         lista.append(Utilitario('san joaquin', 2, 1))
         lista.append(Utilitario('san joaquin', 2, 2))
-    for i in range(2):
+    for i in range(3):
         lista.append(Utilitario('san joaquin', 1, 3))
-    for i in range(2):
+    for i in range(3):
         lista.append(Utilitario('san joaquin', 2, 3))
     return lista
 

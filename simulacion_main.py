@@ -19,7 +19,7 @@ def cumple_promesas(lista_de_fallas):
             falla.hora_entrada_callcenter / 720)  # indica si estamos en una mañana(impar) o una tarde (par)
         momento_res = math.ceil(falla.tiempo_total / 720)
 
-        if falla.hora_atencion - falla.hora_entrada_callcenter > 240:
+        if falla.hora_atencion - falla.hora_entrada_callcenter > 120:
             promesas_incumplidas += 1
             tiempo_incumplimiento += falla.hora_atencion - falla.hora_entrada_callcenter
             l_promesas.append(falla)
@@ -358,8 +358,8 @@ def simulacion():
 
     eventos_terminados.sort(key=sortear_por_tiempo_total)
 
-    for element in eventos_terminados:
-        print(element)
+    '''for element in eventos_terminados:
+        print(element)'''
 
     tiempo_desperdiciado_dia = (((minutos_utilitarios_desperdiciados / 4) / 5) / 60) / len(tecnicos)
 
