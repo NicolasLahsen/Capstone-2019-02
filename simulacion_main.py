@@ -398,7 +398,7 @@ time.sleep(2)
 sys.stdout.write("Rebooting pc. Don't turn off or unplug the power cord.")
 for i in range(9):
     time.sleep(1)
-    sys.stdout.write("\rRebooting pc. Don't turn off ot unplug the power cord." + '.'*(i%3))
+    sys.stdout.write("\rRebooting pc. Don't turn off or unplug the power cord." + '.'*(i%3))
 sys.stdout.write('\nwena cabros era broma\n')
 time.sleep(1)
 sys.stdout.write('Los quiero bai\n')
