@@ -390,5 +390,5 @@ def simulacion():
         fd.write(resultados_texto)
 
 
-for i in range(60):
+for i in range(50):
     simulacion()
