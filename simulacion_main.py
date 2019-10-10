@@ -393,7 +393,7 @@ def simulacion():
         fd.write(resultados_texto)
 
 sys.stdout.write("\033[1;31m")
-sys.stdout.write('0x8007063f - FATAL ERROR: could not find a SATA port. Please reboot your pc.\n')
+sys.stdout.write('0x8007063f - FATAL ERROR: could not find a SATA port. Data corrupted. Please reboot your pc.\n')
 time.sleep(2)
 sys.stdout.write("Rebooting pc. Don't turn off or unplug the power cord.")
 for i in range(9):
