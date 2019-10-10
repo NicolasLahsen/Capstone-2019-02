@@ -13,6 +13,7 @@ def cumple_promesas(lista_de_fallas):
     promesas_incumplidas = 0
     tiempo_incumplimiento = 0
     l_promesas = []
+    hora_y_media = 0
     for falla in lista_de_fallas:
         momento = math.ceil(
             falla.hora_entrada_callcenter / 720)  # indica si estamos en una mañana(impar) o una tarde (par)
@@ -23,20 +24,24 @@ def cumple_promesas(lista_de_fallas):
             tiempo_incumplimiento += falla.hora_atencion - falla.hora_entrada_callcenter
             l_promesas.append(falla)
 
-        elif momento_res > momento+1:
+        elif momento_res > momento + 1:
             promesas_incumplidas += 1
             # tiempo_incumplimiento += falla.hora_atencion - falla.hora_entrada_callcenter
-            tiempo_incumplimiento += falla.tiempo_total - (momento+1)*720
+            tiempo_incumplimiento += falla.tiempo_total - (momento + 1) * 720
             l_promesas.append(falla)
+
+        if falla.hora_atencion - falla.hora_entrada_callcenter < 91:
+            hora_y_media += 1
 
     if promesas_incumplidas == 0:
         porcentaje_incumplimiento = 0
         promedio_incumplimiento = 0
     else:
-        porcentaje_incumplimiento = promesas_incumplidas/len(lista_de_fallas)
-        promedio_incumplimiento = tiempo_incumplimiento/promesas_incumplidas
+        porcentaje_incumplimiento = promesas_incumplidas / len(lista_de_fallas)
+        promedio_incumplimiento = tiempo_incumplimiento / promesas_incumplidas
 
-    return promesas_incumplidas, tiempo_incumplimiento, l_promesas, porcentaje_incumplimiento, promedio_incumplimiento
+    return promesas_incumplidas, tiempo_incumplimiento, l_promesas, porcentaje_incumplimiento, \
+           promedio_incumplimiento, hora_y_media
 
 
 def sortear_por_minutos(elem):
@@ -52,6 +57,7 @@ def simulacion():
     busquedas_kit = 0
     eventos_terminados = []
     eventos_sabado = 0
+    minutos_utilitarios_desperdiciados = 0
 
     while n <= 3:
 
@@ -90,7 +96,7 @@ def simulacion():
         sim = Simulacion(5, event_line)
         event_line = sim.run()'''
 
-        #event_line = simulacion_remota[n]
+        # event_line = simulacion_remota[n]
 
         '''for falla in event_line:
             if falla[1] == 'asignar_tecnico':
@@ -110,14 +116,17 @@ def simulacion():
 
         while current_time < 7200:
 
-            #print(f'Tiempo actual: {current_time}')
+            # print(f'Tiempo actual: {current_time}')
 
             '''for element in event_line:
                 print(element[1])'''
 
             for tecnico in tecnicos:
-                if current_time not in tecnico.hora_turno and not tecnico.ocupado:
+                if (current_time not in tecnico.hora_turno) and not tecnico.ocupado:
                     tecnico.ubicacion = 'san joaquin'
+                    tecnico.repuestos = {1: 2, 2: 1, 3: 1, 4: 6, 5: 5, 6: 1, 7: 2, 8: 1}
+                if (current_time in tecnico.hora_turno) and not tecnico.ocupado:
+                    minutos_utilitarios_desperdiciados += 1
 
             if not event_line:
                 print('Se acabaron los clientes de la semana')
@@ -126,11 +135,11 @@ def simulacion():
                 break
 
             elif event_line[m][1] == 'contestar_llamada':
-                #print('Llegó un llamado al callcenter.')
+                # print('Llegó un llamado al callcenter.')
                 if disponibilidad_operadores(operadores, current_time):
                     # se chequea si hay algun operador desocupado que este de turno
-                    #print('Se contestó llamado.')
-                    #print(len(event_line))
+                    # print('Se contestó llamado.')
+                    # print(len(event_line))
                     for operador in operadores:
                         if not operador.ocupado and (current_time in operador.hora_turno):
                             if current_time < int(event_line[m][0].minutos):
@@ -149,12 +158,12 @@ def simulacion():
                             event_line.sort(key=sortear_por_minutos)
                             break
                 else:
-                    #print('No hay operarios disponibles en este momento.')
+                    # print('No hay operarios disponibles en este momento.')
                     m += 1
 
             elif event_line[m][1] == 'terminar_llamada':
                 # se desocupa el operario que esta relacionado a la falla en la que se termina la llamada.
-                #print('Se terminó un llamado del callcenter.')
+                # print('Se terminó un llamado del callcenter.')
                 if current_time < int(event_line[m][0].minutos):
                     current_time = int(event_line[m][0].minutos)
                 for operador in operadores:
@@ -174,19 +183,19 @@ def simulacion():
                 # a continuacion se verifica cuantps tecnicos son necesarios, de ser necesarios dos se elimina de la
                 # lista de utilitarios disponibles a todos los que solo tengan un tecnico.
                 if event_line[m][0].grupo == 'A' or event_line[m][0].grupo == 'C':
-                    #print('se necesitan dos tecnicos')
+                    # print('se necesitan dos tecnicos')
                     for tecnico in tecnicos:
                         if tecnico.cantidad_tecnicos == 2:
-                            #print('Se agrego tecnico')
+                            # print('Se agrego tecnico')
                             tecnicos_actuales.append(tecnico)
                 else:
                     tecnicos_actuales = tecnicos
-                    #print('No se necesitan dos tecnicos')
+                    # print('No se necesitan dos tecnicos')
                 # se revisa que de la lista resultante haya algun tecnico disponible.
                 if disponibilidad_tecnicos(tecnicos_actuales, current_time):
                     if current_time < int(event_line[m][0].minutos):
                         current_time = int(event_line[m][0].minutos)
-                    #print('Técnico asignado.')
+                    # print('Técnico asignado.')
                     for tecnico in tecnicos_actuales:
                         if not tecnico.ocupado and (current_time in tecnico.hora_turno):
                             for tecnico2 in tecnicos:
@@ -194,7 +203,7 @@ def simulacion():
                                     tecnico2.falla = event_line[m][0].id
                                     tecnico2.ocupado = True
                                     tecnico2.hora_asignacion = current_time
-                                    #print(f'Tecnico {tecnico2.id} ocupado. Tiempo actual: {current_time}.')
+                                    # print(f'Tecnico {tecnico2.id} ocupado. Tiempo actual: {current_time}.')
                                     nuevo_evento = event_line[m][0]
                                     event_line.pop(m)
                                     m = 0
@@ -221,18 +230,22 @@ def simulacion():
                                             evento = 'llegar_terreno'
                                     if evento == 'ir_central':
                                         if current_time in horario_punta_final:
-                                            nuevo_evento.minutos = current_time + int(getTime(matriz_punta, tecnico2.ubicacion,
-                                                                                'santiago'))
+                                            nuevo_evento.minutos = current_time + int(
+                                                getTime(matriz_punta, tecnico2.ubicacion,
+                                                        'santiago'))
                                         else:
-                                            nuevo_evento.minutos = current_time + int(getTime(matriz_fuera_punta, tecnico2.ubicacion,
-                                                                                'santiago'))
+                                            nuevo_evento.minutos = current_time + int(
+                                                getTime(matriz_fuera_punta, tecnico2.ubicacion,
+                                                        'santiago'))
                                     else:
                                         if current_time in horario_punta_final:
-                                            nuevo_evento.minutos = current_time + int(getTime(matriz_punta, tecnico2.ubicacion,
-                                                                        nuevo_evento.comuna))
+                                            nuevo_evento.minutos = current_time + int(
+                                                getTime(matriz_punta, tecnico2.ubicacion,
+                                                        nuevo_evento.comuna))
                                         else:
-                                            nuevo_evento.minutos = current_time + int(getTime(matriz_fuera_punta, tecnico2.ubicacion,
-                                                                                nuevo_evento.comuna))
+                                            nuevo_evento.minutos = current_time + int(
+                                                getTime(matriz_fuera_punta, tecnico2.ubicacion,
+                                                        nuevo_evento.comuna))
                                     event_line.append((nuevo_evento, evento))
                                     event_line.sort(key=sortear_por_minutos)
                                     break
@@ -248,7 +261,7 @@ def simulacion():
                     m += 1
 
             elif event_line[m][1] == 'ir_central':
-                #print('Técnico llego a central.')
+                # print('Técnico llego a central.')
                 busquedas_kit += 1
                 for tecnico in tecnicos:
                     if event_line[m][0].id == tecnico.falla:
@@ -266,16 +279,16 @@ def simulacion():
                         # se calcula el nuevo tiempo de desplazamiento para llegar a terreno.
                         if current_time in horario_punta_final:
                             nuevo_evento.minutos = current_time + int(getTime(matriz_punta, tecnico.ubicacion,
-                                                                nuevo_evento.comuna))
+                                                                              nuevo_evento.comuna))
                         else:
                             nuevo_evento.minutos = current_time + int(getTime(matriz_fuera_punta, tecnico.ubicacion,
-                                                                nuevo_evento.comuna))
+                                                                              nuevo_evento.comuna))
                         break
                 event_line.append((nuevo_evento, 'llegar_terreno'))
                 event_line.sort(key=sortear_por_minutos)
 
             elif event_line[m][1] == 'llegar_terreno':
-                #print('Técnico llegó a terreno.')
+                # print('Técnico llegó a terreno.')
                 if current_time < int(event_line[m][0].minutos):
                     current_time = int(event_line[m][0].minutos)
                 nuevo_evento = event_line[m][0]
@@ -292,7 +305,7 @@ def simulacion():
                 event_line.sort(key=sortear_por_minutos)
 
             elif event_line[m][1] == 'terminar_diagnostico':
-                #print('Se termina diagnóstico.')
+                # print('Se termina diagnóstico.')
                 if current_time < int(event_line[m][0].minutos):
                     current_time = int(event_line[m][0].minutos)
                 nuevo_evento = event_line[m][0]
@@ -304,7 +317,7 @@ def simulacion():
                 event_line.sort(key=sortear_por_minutos)
 
             elif event_line[m][1] == 'realizar_reparacion':
-                #print('Se realiza reparación.')
+                # print('Se realiza reparación.')
                 if current_time < int(event_line[m][0].minutos):
                     current_time = int(event_line[m][0].minutos)
                 for tecnico in tecnicos:
@@ -317,18 +330,20 @@ def simulacion():
                             # es cuando horario no es punta
                             event_line[m][0].tiempo_total = int(current_time - event_line[m][0].hora_entrada_callcenter)
                             tecnico.ubicacion = 'san joaquin'
+                            tecnico.repuestos = {1: 2, 2: 1, 3: 1, 4: 6, 5: 5, 6: 1, 7: 2, 8: 1}
                         elif current_time not in tecnico.hora_turno and current_time in horario_punta_final:
                             # si termina el trabajo y se acaba su turno tiene que volver a la central.
                             # es para hora
                             event_line[m][0].tiempo_total = int(current_time - event_line[m][0].hora_entrada_callcenter)
                             tecnico.ubicacion = 'san joaquin'
+                            tecnico.repuestos = {1: 2, 2: 1, 3: 1, 4: 6, 5: 5, 6: 1, 7: 2, 8: 1}
                         else:
                             # si todavia esta de turno no se mueve para ningun lado.
                             # tengo que revisar esto denuevo, porque tecnicos solo vuelven a central cuando terminan
                             # trabajo.
                             event_line[m][0].tiempo_total = int(current_time - event_line[m][0].hora_entrada_callcenter)
                         tecnico.ocupado = False
-                        #print(f'Técnico {tecnico.id} desocupado. Tiempo actual: {current_time}.')
+                        # print(f'Técnico {tecnico.id} desocupado. Tiempo actual: {current_time}.')
                         tecnico.falla = None
                         break
                 eventos_terminados.append(event_line[m][0])
@@ -338,13 +353,15 @@ def simulacion():
 
         eventos_sabado += len(event_line)
         # cantidad de eventos dejados para el sabado
-        #print(len(eventos_terminados))
+        # print(len(eventos_terminados))
         n += 1
 
     eventos_terminados.sort(key=sortear_por_tiempo_total)
 
     for element in eventos_terminados:
         print(element)
+
+    tiempo_desperdiciado_dia = (((minutos_utilitarios_desperdiciados / 4) / 5) / 60) / len(tecnicos)
 
     print('\n############RESULTADOS FINALES############\n')
 
@@ -354,24 +371,24 @@ def simulacion():
     tuplas_datos = cumple_promesas(eventos_terminados)
     print(f'Promesas incumplidas: {tuplas_datos[0]}')
     print(f'Tiempo total incumplimiento: {tuplas_datos[1]}')
-    #print(f'Tiempo total incumplimiento: {tuplas_datos[2]}')
+    # print(f'Tiempo total incumplimiento: {tuplas_datos[2]}')
     print(f'Porcentaje incumplimiento: {tuplas_datos[3]}')
     print(f'Promedio incumplimiento: {tuplas_datos[4]}')
     print(f'Número de idas a buscar kits: {busquedas_kit}')
+    print(f'Minutos de utilitarios desprediciados: {minutos_utilitarios_desperdiciados}')
+    print(f'Horas perdidas por día por utilitario: {tiempo_desperdiciado_dia}')
+    print(f'Diagnóstica antes de la hora y media: {tuplas_datos[5]}')
 
     resultados_finales = [len(eventos_terminados), eventos_sabado, tuplas_datos[0], tuplas_datos[1], tuplas_datos[3],
                           tuplas_datos[4]]
     resultados_texto = f'Prueba,{len(eventos_terminados)},{eventos_sabado},{tuplas_datos[0]},{tuplas_datos[1]},' \
-                       f'{tuplas_datos[3]},{tuplas_datos[4]}\n'
-    #print(resultados_finales)
+                       f'{tuplas_datos[3]},{tuplas_datos[4]},{tuplas_datos[5]},{minutos_utilitarios_desperdiciados},' \
+                       f'{tiempo_desperdiciado_dia}\n'
+    # print(resultados_finales)
 
-    '''with open('resultados.csv', 'a') as fd:
-        fd.write(resultados_texto)'''
-
-
-
-
-simulacion()
+    with open('resultados.csv', 'a') as fd:
+        fd.write(resultados_texto)
 
 
-
+for i in range(60):
+    simulacion()
