@@ -7,7 +7,8 @@ from simulacion_servidores import Simulacion, simulacion_remota
 from operadores import instanciar_operadores, disponibilidad_operadores
 import math
 import csv
-
+import sys
+import time
 
 def cumple_promesas(lista_de_fallas):
     promesas_incumplidas = 0
@@ -362,13 +363,14 @@ def simulacion():
         print(element)'''
 
     tiempo_desperdiciado_dia = (((minutos_utilitarios_desperdiciados / 4) / 5) / 60) / len(tecnicos)
-
+    '''
     print('\n############RESULTADOS FINALES############\n')
 
     print(f'Se dejaron {eventos_sabado} eventos para el sábado.')
     print(f'Se completaron {len(eventos_terminados)} eventos.')
-    print(n)
+    print(n)'''
     tuplas_datos = cumple_promesas(eventos_terminados)
+    '''
     print(f'Promesas incumplidas: {tuplas_datos[0]}')
     print(f'Tiempo total incumplimiento: {tuplas_datos[1]}')
     # print(f'Tiempo total incumplimiento: {tuplas_datos[2]}')
@@ -378,6 +380,7 @@ def simulacion():
     print(f'Minutos de utilitarios desprediciados: {minutos_utilitarios_desperdiciados}')
     print(f'Horas perdidas por día por utilitario: {tiempo_desperdiciado_dia}')
     print(f'Diagnóstica antes de la hora y media: {tuplas_datos[5]}')
+    '''
 
     resultados_finales = [len(eventos_terminados), eventos_sabado, tuplas_datos[0], tuplas_datos[1], tuplas_datos[3],
                           tuplas_datos[4]]
@@ -389,6 +392,22 @@ def simulacion():
     with open('resultados.csv', 'a') as fd:
         fd.write(resultados_texto)
 
-
+sys.stdout.write("\033[1;31m")
+sys.stdout.write('0x8007063f - FATAL ERROR: could not find a SATA port. Please reboot your pc.\n')
+time.sleep(2)
+sys.stdout.write("Rebooting pc. Don't turn off or unplug the power cord.")
+for i in range(9):
+    time.sleep(1)
+    sys.stdout.write("\rRebooting pc. Don't turn off ot unplug the power cord." + '.'*(i%3))
+sys.stdout.write('\nwena cabros era broma\n')
+time.sleep(1)
+sys.stdout.write('Los quiero bai\n')
+sys.stdout.write("\033[0;32m")
+print('COMIENZA LA SIMULACION')
 for i in range(50):
+    sys.stdout.write("\033[1;34m")
     simulacion()
+    sys.stdout.write('\r['+'-'*i+' '*(49-i)+']'+ "Progress: "+str(int(100*(i+1)/50))+"%")
+    sys.stdout.flush()
+sys.stdout.write("\033[1;31m")
+sys.stdout.write()
