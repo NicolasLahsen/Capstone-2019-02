@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="16b26f93-5c0d-45cc-be6e-259bba065ce4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/simulacion_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulacion_main.py" afterDir="false" />
-    </list>
+    <list default="true" id="16b26f93-5c0d-45cc-be6e-259bba065ce4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +312,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="27" y="56" width="1400" height="770" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24873096" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
