@@ -8,6 +8,7 @@ Estructura : params :{
     dia: {comuna: {lambdas: [], repeticiones:[], llamados:[])}}
 '''
 
+
 def get_llamado(franja: list):
     '''
     Función que recibe una lista con los límites de cada

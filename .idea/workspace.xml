@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16b26f93-5c0d-45cc-be6e-259bba065ce4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generador_llamadas.py" beforeDir="false" afterPath="$PROJECT_DIR$/generador_llamadas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resultados.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resultados.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulacion_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulacion_main.py" afterDir="false" />
@@ -21,8 +20,8 @@
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="4" />
-          <entry key="project.open.time.5" value="3" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.open.time.5" value="4" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -37,12 +36,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7860" />
+          <entry key="py" value="7921" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7860" />
+          <entry key="Python" value="7921" />
         </counts>
       </usages-collector>
     </session>
@@ -52,10 +51,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simulacion_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="389" column="66" selection-start-line="389" selection-start-column="66" selection-end-line="389" selection-end-column="66" />
+            <state relative-caret-position="-5082">
               <folding>
-                <element signature="e#486#1856#0" />
+                <element signature="e#487#1857#0" />
+                <element signature="e#1895#1917#0" />
+                <element signature="e#1960#1984#0" />
               </folding>
             </state>
           </provider>
@@ -94,8 +94,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generador_llamadas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+            <state relative-caret-position="-449">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -315,7 +315,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="27" y="56" width="1400" height="770" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24873096" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -402,8 +401,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generador_llamadas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+        <state relative-caret-position="-449">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -412,10 +411,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simulacion_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="389" column="66" selection-start-line="389" selection-start-column="66" selection-end-line="389" selection-end-column="66" />
+        <state relative-caret-position="-5082">
           <folding>
-            <element signature="e#486#1856#0" />
+            <element signature="e#487#1857#0" />
+            <element signature="e#1895#1917#0" />
+            <element signature="e#1960#1984#0" />
           </folding>
         </state>
       </provider>

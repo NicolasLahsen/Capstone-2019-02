@@ -1,9 +1,8 @@
 from Clase_Falla import Falla
-from generador_llamadas import parametros
+from generador_llamadas import generar_llamados
 from Clase_Utilitario import instanciar_tecnicos, disponibilidad_tecnicos
 from tiempos_sin_nulos import getTime, matriz_fuera_punta, matriz_punta
-from parametros import horario_punta_final
-from simulacion_servidores import Simulacion, simulacion_remota
+from parametros import horario_punta_final, params, horas
 from operadores import instanciar_operadores, disponibilidad_operadores
 import math
 import csv
@@ -54,7 +53,7 @@ def sortear_por_tiempo_total(elem):
     return elem.tiempo_total
 
 
-def simulacion():
+def simulacion(parametros):
     n = 0
     busquedas_kit = 0
     eventos_terminados = []
@@ -131,7 +130,7 @@ def simulacion():
                     minutos_utilitarios_desperdiciados += 1
 
             if not event_line:
-                print('Se acabaron los clientes de la semana')
+                #print('Se acabaron los clientes de la semana')
                 # si no hay mas eventos, no hay mas que hacer.
                 current_time = 100000
                 break
@@ -396,8 +395,9 @@ def simulacion():
 
 print('COMIENZA LA SIMULACION')
 for i in range(50):
+    parametros = generar_llamados(params, horas)
     sys.stdout.write("\033[1;34m")
-    simulacion()
+    simulacion(parametros)
     sys.stdout.write('\r['+'-'*i+' '*(49-i)+']' + "Progress: "+str(int(100*(i+1)/50))+"%")
     sys.stdout.flush()
 sys.stdout.write("\033[1;31m")
