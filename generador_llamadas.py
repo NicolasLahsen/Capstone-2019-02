@@ -1,12 +1,12 @@
 import numpy as np
 import scipy.stats as ss
 from parametros import params, horas
+import copy
 
 '''
 Estructura : params :{
     dia: {comuna: {lambdas: [], repeticiones:[], llamados:[])}}
 '''
-
 
 def get_llamado(franja: list):
     '''
@@ -32,13 +32,6 @@ def crear_listas(params: dict):
                     franja.append(franja[-1]+ss.poisson.pmf(i, lmbda))
                 franja.pop(0)
                 index = get_llamado(franja)
-                '''
-                if index == 0:
-                    print(f'--SE ENCUENTRA ENTRE 0 y {franja[index+1]}')
-                else:
-                    print(f'--SE ENCUENTRA ENTRE {franja[index]}
-                     y {franja[index+1]}')
-                '''
                 dicc2["repeticiones"].append(index)
             # print(dicc2["repeticiones"])
 
@@ -48,7 +41,6 @@ def asignar_horas(params: dict, horas: list):
         for comuna, dicc2 in dicc1.items():
             for repeticion_franja in range(len(dicc2["repeticiones"])):
                 for i in range(dicc2["repeticiones"][repeticion_franja]):
-                    # print(horas[repeticion_franja])
                     r = np.random.uniform(
                         horas[repeticion_franja][0],
                         horas[repeticion_franja][1])
@@ -66,10 +58,19 @@ def minutos_a_horas(minutos: int):
 
 
 def generar_llamados(params, horas):
-    crear_listas(params)
-    asignar_horas(params, horas)
+    output = copy.deepcopy(params)
+    crear_listas(output)
+    asignar_horas(output, horas)
+    return output
 
 
-generar_llamados(params, horas)
 
-parametros = params
+# AQUI HAGO UNA COPIA DEL DICCIONARIO, CON DEEPCOPY NO SE COPIAN
+# REFERENCIAS, POR LO QUE SOLO SE MODIFICA OUTPUT. "PARAMS" QUEDA 
+# TAL CUAL ESTA INSTANCIADO.
+'''
+output = generar_llamados(params, horas)
+print(output)
+print(params)
+
+'''
