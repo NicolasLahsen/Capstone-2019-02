@@ -8,6 +8,7 @@ import math
 import csv
 import sys
 import time
+from progress.bar import IncrementalBar
 
 
 def cumple_promesas(lista_de_fallas):
@@ -198,7 +199,8 @@ def simulacion(parametros):
                         current_time = int(event_line[m][0].minutos)
                     # print('Técnico asignado.')
                     for tecnico in tecnicos_actuales:
-                        if not tecnico.ocupado and (current_time in tecnico.hora_turno):
+                        # Primero busca si hay alguno en la comuna.
+                        if not tecnico.ocupado and (current_time in tecnico.hora_turno) and event_line[m][0].comuna == tecnico.ubicacion:
                             for tecnico2 in tecnicos:
                                 if tecnico2.id == tecnico.id:
                                     tecnico2.falla = event_line[m][0].id
@@ -251,6 +253,63 @@ def simulacion(parametros):
                                     event_line.sort(key=sortear_por_minutos)
                                     break
                             break
+                    else:
+                        #Si ninguno esta en la comuna, busco normal
+                        for tecnico in tecnicos_actuales:
+                            if not tecnico.ocupado and (current_time in tecnico.hora_turno):
+                                for tecnico2 in tecnicos:
+                                    if tecnico2.id == tecnico.id:
+                                        tecnico2.falla = event_line[m][0].id
+                                        tecnico2.ocupado = True
+                                        tecnico2.hora_asignacion = current_time
+                                        # print(f'Tecnico {tecnico2.id} ocupado. Tiempo actual: {current_time}.')
+                                        nuevo_evento = event_line[m][0]
+                                        event_line.pop(m)
+                                        m = 0
+                                        # se revisa si es necesario ir a la central a buscar repuestos por las fallas.
+                                        # despues se ve el tiempo de llegada hasta el lugar al que van a ir.
+                                        # el tiempo en el que se terminara el proximo evento de la falla esta guardado en
+                                        # su atributo minutos. Se guarda su proxima ubicacion para futuros calculos.
+                                        if nuevo_evento.grupo == 'A':
+                                            if tecnico2.repuestos[1] == 0 or tecnico2.repuestos[4] == 0 or \
+                                                    tecnico2.repuestos[8] == 0:
+                                                evento = 'ir_central'
+                                            else:
+                                                evento = 'llegar_terreno'
+                                        elif nuevo_evento.grupo == 'B':
+                                            if tecnico2.repuestos[3] == 0 or tecnico2.repuestos[5] == 0 or \
+                                                    tecnico2.repuestos[7] == 0:
+                                                evento = 'ir_central'
+                                            else:
+                                                evento = 'llegar_terreno'
+                                        else:
+                                            if tecnico2.repuestos[2] == 0 or tecnico2.repuestos[6] == 0:
+                                                evento = 'ir_central'
+                                            else:
+                                                evento = 'llegar_terreno'
+                                        if evento == 'ir_central':
+                                            if current_time in horario_punta_final:
+                                                nuevo_evento.minutos = current_time + int(
+                                                    getTime(matriz_punta, tecnico2.ubicacion,
+                                                            'santiago'))
+                                            else:
+                                                nuevo_evento.minutos = current_time + int(
+                                                    getTime(matriz_fuera_punta, tecnico2.ubicacion,
+                                                            'santiago'))
+                                        else:
+                                            if current_time in horario_punta_final:
+                                                nuevo_evento.minutos = current_time + int(
+                                                    getTime(matriz_punta, tecnico2.ubicacion,
+                                                            nuevo_evento.comuna))
+                                            else:
+                                                nuevo_evento.minutos = current_time + int(
+                                                    getTime(matriz_fuera_punta, tecnico2.ubicacion,
+                                                            nuevo_evento.comuna))
+                                        event_line.append((nuevo_evento, evento))
+                                        event_line.sort(key=sortear_por_minutos)
+                                        break
+                                break
+                        
                     '''tecnicos_ocupados = []
                     for tecnico in tecnicos:
                         if tecnico.ocupado:
@@ -387,6 +446,7 @@ def simulacion(parametros):
     resultados_texto = f'Prueba,{len(eventos_terminados)},{eventos_sabado},{tuplas_datos[0]},{tuplas_datos[1]},' \
                        f'{tuplas_datos[3]},{tuplas_datos[4]},{tuplas_datos[5]},{minutos_utilitarios_desperdiciados},' \
                        f'{tiempo_desperdiciado_dia},{busquedas_kit}\n'
+
     # print(resultados_finales)
 
     with open('resultados.csv', 'a') as fd:
@@ -394,10 +454,16 @@ def simulacion(parametros):
 
 
 print('COMIENZA LA SIMULACION')
-for i in range(50):
+bar = IncrementalBar('Progress', max =100, suffix = "%(percent)d%%. [%(index)d/%(max)d]  %(eta)ds remaining.   %(elapsed)ds elapsed.    %(avg)ds average.")
+for i in range(100):
+    #sys.stdout.write("\033[1;34m")
+    #sys.stdout.write('\r['+'-'*(i//2)+' '*(100-(i//2))+']' + "Progress: "+str(int(100*(i+1)/200))+"%. Generating calls #"+str(i+1))
+    #sys.stdout.flush()
     parametros = generar_llamados(params, horas)
-    sys.stdout.write("\033[1;34m")
     simulacion(parametros)
-    sys.stdout.write('\r['+'-'*i+' '*(49-i)+']' + "Progress: "+str(int(100*(i+1)/50))+"%")
-    sys.stdout.flush()
-sys.stdout.write("\033[1;31m")
+    bar.next()
+    #sys.stdout.write('\r['+'-'*(i//2)+' '*(100-(i//2))+']' + "Progress: "+str(int(100*(i+1)/200))+"%. Running scheduling #"+str(i+1))
+    #sys.stdout.flush()
+#sys.stdout.write("\033[1;31m")
+#print("")
+bar.finish()

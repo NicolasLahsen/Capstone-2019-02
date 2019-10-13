@@ -109,3 +109,6 @@ def disponibilidad_tecnicos(lista, current_time):
             # si encuentra un tecnico disponible retorna verdadero, que esté en turno
             return True
     return False
+
+tecnicos = instanciar_tecnicos()
+print(tecnicos.__len__())
