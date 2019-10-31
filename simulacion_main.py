@@ -195,12 +195,15 @@ def simulacion(parametros):
                 else:
                     tecnicos_actuales = tecnicos
                     # print('No se necesitan dos tecnicos')
-                # se revisa que de la lista resultante haya algun tecnico disponible.
+                # Se revisan los tiempos de llegada de cada tecnico
                 tiempos_llegada = []
                 for tecnico in tecnicos_actuales:
                     if tecnico.tiempo_termino < current_time:
+                        # si por alguna razon el tiempo termino es menor al tiempo actual, se actualiza
                         tecnico.tiempo_termino = current_time
                     if current_time not in tecnico.hora_turno:
+                        # si en el tiempo actual no le toca turno al tecnico, se pone que su tiempo termino es cuando
+                        # empiece su siguiente turno
                         horarios = tecnico.horarios_comienzo
                         for hora in horarios:
                             if hora < current_time:
@@ -208,23 +211,30 @@ def simulacion(parametros):
                         if horarios:
                             tecnico.tiempo_termino = min(horarios)
                         else:
+                            # si su tiempo termino es mayor a cuando termina su turno, se le pione un numero grande
+                            # para que no se use mas tecnico
                             tecnico.tiempo_termino = 10000
+                    # se calcula el tiempo de llegada al lugar de la falla
                     if tecnico.tiempo_termino in horario_punta_final:
                         hora_arribo = int(tecnico.tiempo_termino + getTime(matriz_punta, tecnico.ubicacion,
                                                                            event_line[m][0].comuna))
                     else:
                         hora_arribo = int(tecnico.tiempo_termino + getTime(matriz_fuera_punta, tecnico.ubicacion,
                                                                            event_line[m][0].comuna))
-                    if hora_arribo in tecnico.hora_turno and len(tecnico.lista_fallas) < 4:
+                    # se ve que la hora de arribo este en el turno y que la fila de fallas no sea muy larga para tomar a
+                    # los tecnicos en cuenta
+                    if hora_arribo in tecnico.hora_turno and len(tecnico.lista_fallas) < 1:
                         tiempos_llegada.append((tecnico, hora_arribo))
                     print(f'Tiempo arribo tecnico {tecnico.id}: {hora_arribo} ({tecnico.tiempo_termino}), Fila: '
                           f'{len(tecnico.lista_fallas)}')
                 if tiempos_llegada:
+                    # si existe algun tecnico que la pueda tomar se entra aca
                     tecnico_id = min(tiempos_llegada, key=lambda t: t[1])
                     print(f'Tecnico asignado: {tecnico_id[0].id}, Fila: {len(tecnico_id[0].lista_fallas)}')
                     for tecnico in tecnicos:
                         if tecnico.id == tecnico_id[0].id:
                             if not tecnico.ocupado:
+                                # caso para asignacion a tecnico desocupado
                                 print('Asigna a tecnico desocupado')
                                 tecnico.ocupado = True
                                 tecnico.falla = event_line[m][0].id
