@@ -40,6 +40,7 @@ class Falla:
         self.comuna = comuna
         self.hora_llamada = hora_llamada  # hora cuando se genero la llamada
         self.dia_llamada = dia_llamada  # dia en que se genero la llamada
+        self.tecnico = None
 
         self.hora_entrada_callcenter = None  # OJO: no siempre entraría al call center al mi
         self.tiempo_callcenter = None  # tiempo que pasa en callcenter
@@ -228,7 +229,8 @@ class Falla:
                   tiempo diagnostico: {self.tiempo_diagnostico}
                   tiempo resolucion: {self.tiempo_resolucion}
                   hora llegada terreno: {self.hora_atencion}
-                  tiempo total: {self.tiempo_total}'''
+                  tiempo total: {self.tiempo_total}
+                  comuna: {self.comuna}'''
 
     def __repr__(self):
         return self.__str__()
