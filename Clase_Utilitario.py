@@ -11,6 +11,10 @@ class Utilitario:
         self.__ocupado = False
         self.id = Utilitario.class_counter
         self.__falla = None
+        self.__tiempo_trabajo = 0
+        self.__tiempo_termino = 0
+        self.lista_fallas = list()
+        self.horarios_comienzo = self.generador_comienzos()
         Utilitario.class_counter += 1
 
     @property
@@ -44,6 +48,22 @@ class Utilitario:
     @repuestos.setter
     def repuestos(self, diccionario):
         self.__repuestos = diccionario
+
+    @property
+    def tiempo_trabajo(self):
+        return self.__tiempo_trabajo
+
+    @tiempo_trabajo.setter
+    def tiempo_trabajo(self, inicio):
+        self.__tiempo_trabajo = inicio
+
+    @property
+    def tiempo_termino(self):
+        return self.__tiempo_termino
+
+    @tiempo_termino.setter
+    def tiempo_termino(self, termino):
+        self.__tiempo_termino = termino
 
     def generador_horas(self):
         minutos_permitidos = []
@@ -87,6 +107,35 @@ class Utilitario:
                 minutos_permitidos.append(i)
         return minutos_permitidos
 
+    def generador_comienzos(self):
+        horarios = []
+        if self.tipo_turno == 3:
+            # turno de las 20 a las 6
+            horarios.append(0)
+            horarios.append(1200)
+            horarios.append(2640)
+            horarios.append(4080)
+            horarios.append(5520)
+            horarios.append(6960)
+
+        elif self.tipo_turno == 1:
+            # turno de las 6 a las 16
+            horarios.append(360)
+            horarios.append(1800)
+            horarios.append(3240)
+            horarios.append(4680)
+            horarios.append(6120)
+
+        else:
+            # turno de las 12 a las 20
+            horarios.append(720)
+            horarios.append(2160)
+            horarios.append(3600)
+            horarios.append(5040)
+            horarios.append(6480)
+
+        return horarios
+
 
 def instanciar_tecnicos():
     lista = []
@@ -110,5 +159,3 @@ def disponibilidad_tecnicos(lista, current_time):
             return True
     return False
 
-tecnicos = instanciar_tecnicos()
-print(tecnicos.__len__())
