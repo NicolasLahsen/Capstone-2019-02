@@ -59,9 +59,9 @@ def simulacion(parametros):
     busquedas_kit = 0
     eventos_terminados = []
     eventos_sabado = 0
-    minutos_utilitarios_desperdiciados = 0
+    minutos_utilitarios_usados = 0
 
-    while n <= 0:
+    while n <= 3:
 
         # n es el número de semanas que se simularán
 
@@ -118,7 +118,7 @@ def simulacion(parametros):
 
         while current_time < 7200:
 
-            print(f'Tiempo actual: {current_time}')
+            # print(f'Tiempo actual: {current_time}')
 
             '''for element in event_line:
                 print(element[1])'''
@@ -225,17 +225,17 @@ def simulacion(parametros):
                     # los tecnicos en cuenta
                     if hora_arribo in tecnico.hora_turno and len(tecnico.lista_fallas) < 1:
                         tiempos_llegada.append((tecnico, hora_arribo))
-                    print(f'Tiempo arribo tecnico {tecnico.id}: {hora_arribo} ({tecnico.tiempo_termino}), Fila: '
-                          f'{len(tecnico.lista_fallas)}')
+                    # print(f'Tiempo arribo tecnico {tecnico.id}: {hora_arribo} ({tecnico.tiempo_termino}), Fila: '
+                          # f'{len(tecnico.lista_fallas)}')
                 if tiempos_llegada:
                     # si existe algun tecnico que la pueda tomar se entra aca
                     tecnico_id = min(tiempos_llegada, key=lambda t: t[1])
-                    print(f'Tecnico asignado: {tecnico_id[0].id}, Fila: {len(tecnico_id[0].lista_fallas)}')
+                    # print(f'Tecnico asignado: {tecnico_id[0].id}, Fila: {len(tecnico_id[0].lista_fallas)}')
                     for tecnico in tecnicos:
                         if tecnico.id == tecnico_id[0].id:
                             if not tecnico.ocupado:
                                 # caso para asignacion a tecnico desocupado
-                                print('Asigna a tecnico desocupado')
+                                # print('Asigna a tecnico desocupado')
                                 tecnico.ocupado = True
                                 tecnico.falla = event_line[m][0].id
                                 tecnico.lista_fallas.append(event_line[m][0])
@@ -313,13 +313,9 @@ def simulacion(parametros):
                                 event_line.append((nuevo_evento, evento))
                                 event_line.sort(key=sortear_por_minutos)
                                 to = 0
-                                for util in tecnicos:
-                                    if util.ocupado:
-                                        to += 1
-                                print(f'Utilitarios ocupados: {to}')
                             else:
                                 # print('Se asigna a fila de tecnico')
-                                print(f'Horario termino 1: {tecnico.tiempo_termino}')
+                                # print(f'Horario termino 1: {tecnico.tiempo_termino}')
                                 if tecnico.tiempo_termino > current_time:
                                     pass
                                 elif current_time in tecnico.hora_turno:
@@ -333,7 +329,7 @@ def simulacion(parametros):
                                         tecnico.tiempo_termino = min(horarios)
                                     else:
                                         tecnico.tiempo_termino = 10000
-                                print(f'Horario termino 2: {tecnico.tiempo_termino}')
+                                # print(f'Horario termino 2: {tecnico.tiempo_termino}')
                                 tecnico.lista_fallas.append(event_line[m][0])
                                 if tecnico.tiempo_termino in horario_punta_final:
                                     tecnico.tiempo_termino += \
@@ -347,7 +343,7 @@ def simulacion(parametros):
                                                     event_line[m][0].comuna))
                                 tecnico.tiempo_termino += int(event_line[m][0].tiempo_diagnostico +
                                                               event_line[m][0].tiempo_resolucion)
-                                print(f'Horario termino 3: {tecnico.tiempo_termino}')
+                                # print(f'Horario termino 3: {tecnico.tiempo_termino}')
                                 nuevo_evento = event_line[m][0]
                                 event_line.pop(m)
                                 m = 0
@@ -518,13 +514,15 @@ def simulacion(parametros):
         # cantidad de eventos dejados para el sabado
         # print(len(eventos_terminados))
         n += 1
+        for tecnico in tecnicos:
+            minutos_utilitarios_usados += tecnico.tiempo_trabajo
 
     eventos_terminados.sort(key=sortear_por_tiempo_total)
 
     '''for element in eventos_terminados:
         print(element)'''
 
-    tiempo_desperdiciado_dia = (((minutos_utilitarios_desperdiciados / 4) / 5) / 60) / len(tecnicos)
+    tiempo_usado_dia = (((minutos_utilitarios_usados / 4) / 5) / 60) / len(tecnicos)
     '''
     print('\n############RESULTADOS FINALES############\n')
 
@@ -547,16 +545,10 @@ def simulacion(parametros):
     resultados_finales = [len(eventos_terminados), eventos_sabado, tuplas_datos[0], tuplas_datos[1], tuplas_datos[3],
                           tuplas_datos[4]]
     resultados_texto = f'Prueba,{len(eventos_terminados)},{eventos_sabado},{tuplas_datos[0]},{tuplas_datos[1]},' \
-                       f'{tuplas_datos[3]},{tuplas_datos[4]},{tuplas_datos[5]},{minutos_utilitarios_desperdiciados},' \
-                       f'{tiempo_desperdiciado_dia},{busquedas_kit}\n'
+                       f'{tuplas_datos[3]},{tuplas_datos[4]},{tuplas_datos[5]},{minutos_utilitarios_usados},' \
+                       f'{tiempo_usado_dia},{busquedas_kit}\n'
 
     # print(resultados_finales)
-
-    for tecnico in tecnicos:
-        print(f'Tiempo de tecnico {tecnico.id}: {tecnico.tiempo_trabajo}, '
-              f'Cantidad tecnicos: {tecnico.cantidad_tecnicos}, '
-              f'Turno tecnico: {tecnico.tipo_turno}, '
-              f'Fallas en cola: {len(tecnico.lista_fallas)}')
 
     with open('resultados.csv', 'a') as fd:
         fd.write(resultados_texto)
@@ -564,7 +556,7 @@ def simulacion(parametros):
 
 print('COMIENZA LA SIMULACION')
 bar = IncrementalBar('Progress', max =100, suffix = "%(percent)d%%. [%(index)d/%(max)d]  %(eta)ds remaining.   %(elapsed)ds elapsed.    %(avg)ds average.")
-for i in range(1):
+for i in range(100):
     sys.stdout.write("\033[1;34m")
     sys.stdout.write('\r['+'-'*(i//2)+' '*(100-(i//2))+']' + "Progress: "+str(int(100*(i+1)/200))+"%. Generating calls #"+str(i+1))
     sys.stdout.flush()
