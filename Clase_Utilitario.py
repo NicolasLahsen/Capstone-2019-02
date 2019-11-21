@@ -139,7 +139,28 @@ class Utilitario:
 
 def instanciar_tecnicos():
     lista = []
-    for i in range(4):
+    for i in range(1):
+        lista.append(Utilitario('las condes', 1, 1))
+        lista.append(Utilitario('penalolen', 1, 1))
+        lista.append(Utilitario('santiago', 1, 2))
+        lista.append(Utilitario('penalolen', 1, 2))
+        lista.append(Utilitario('las condes', 1, 3))
+        lista.append(Utilitario('santiago', 1, 3))
+        lista.append(Utilitario('penalolen', 1, 3))
+        lista.append(Utilitario('las condes', 2, 3))
+        lista.append(Utilitario('santiago', 2, 3))
+        lista.append(Utilitario('penalolen', 2, 3))
+    for i in range(2):
+        lista.append(Utilitario('santiago', 1, 1))
+        lista.append(Utilitario('las condes', 2, 1))
+        lista.append(Utilitario('santiago', 2, 1))
+        lista.append(Utilitario('las condes', 1, 2))
+        lista.append(Utilitario('las condes', 2, 2))
+        lista.append(Utilitario('santiago', 2, 2))
+    for i in range(3):
+        lista.append(Utilitario('penalolen', 2, 1))
+        lista.append(Utilitario('penalolen', 2, 2))
+    '''for i in range(4):
         lista.append(Utilitario('san joaquin', 1, 1))
         lista.append(Utilitario('san joaquin', 1, 2))
     for i in range(7):
@@ -148,7 +169,7 @@ def instanciar_tecnicos():
     for i in range(3):
         lista.append(Utilitario('san joaquin', 1, 3))
     for i in range(3):
-        lista.append(Utilitario('san joaquin', 2, 3))
+        lista.append(Utilitario('san joaquin', 2, 3))'''
     return lista
 
 

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16b26f93-5c0d-45cc-be6e-259bba065ce4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/generador_llamadas.py" beforeDir="false" afterPath="$PROJECT_DIR$/generador_llamadas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clase_Utilitario.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clase_Utilitario.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resultados.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resultados.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulacion_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulacion_main.py" afterDir="false" />
     </list>
@@ -16,32 +17,34 @@
     <session id="-3572859">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.4" value="4" />
-          <entry key="project.open.time.5" value="4" />
+          <entry key="project.closed" value="10" />
+          <entry key="project.open.time.0" value="2" />
+          <entry key="project.open.time.4" value="3" />
+          <entry key="project.open.time.5" value="3" />
+          <entry key="project.open.time.6" value="2" />
           <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="14" />
+          <entry key="csv" value="2" />
+          <entry key="py" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="14" />
+          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="Python" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7921" />
+          <entry key="py" value="9090" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7921" />
+          <entry key="Python" value="9090" />
         </counts>
       </usages-collector>
     </session>
@@ -51,11 +54,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simulacion_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5082">
+            <state relative-caret-position="-269">
+              <caret line="517" column="85" selection-start-line="517" selection-start-column="85" selection-end-line="517" selection-end-column="85" />
               <folding>
-                <element signature="e#487#1857#0" />
-                <element signature="e#1895#1917#0" />
-                <element signature="e#1960#1984#0" />
+                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#484#1854#0" />
+                <element signature="e#1892#1914#0" />
+                <element signature="e#1957#1981#0" />
               </folding>
             </state>
           </provider>
@@ -64,7 +69,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/operadores.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1110">
+            <state relative-caret-position="601">
               <caret line="74" column="78" selection-start-line="74" selection-start-column="78" selection-end-line="74" selection-end-column="78" />
             </state>
           </provider>
@@ -73,19 +78,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Clase_Utilitario.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="46" selection-start-line="46" selection-end-line="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulacion_servidores.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1710">
-              <caret line="122" selection-start-line="122" selection-end-line="122" />
+            <state relative-caret-position="31">
+              <caret line="141" column="22" lean-forward="true" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="22" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <marker date="1574351493100" expanded="true" signature="1664:1710" ph="..." />
               </folding>
             </state>
           </provider>
@@ -94,7 +90,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generador_llamadas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-449">
+            <state relative-caret-position="-148">
               <caret line="10" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -106,12 +102,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Clase_Falla.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
-              <caret line="56" column="35" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
+            <state relative-caret-position="2476">
+              <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parametros.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-971" />
           </provider>
         </entry>
       </file>
@@ -120,6 +123,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>tiempo_ca</find>
+      <find>minutos_uti</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -128,12 +132,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/generador_llamadas.py" />
         <option value="$PROJECT_DIR$/simulacion_servidores.py" />
         <option value="$PROJECT_DIR$/operadores.py" />
         <option value="$PROJECT_DIR$/Clase_Falla.py" />
-        <option value="$PROJECT_DIR$/Clase_Utilitario.py" />
-        <option value="$PROJECT_DIR$/generador_llamadas.py" />
         <option value="$PROJECT_DIR$/simulacion_main.py" />
+        <option value="$PROJECT_DIR$/Clase_Utilitario.py" />
       </list>
     </option>
   </component>
@@ -321,7 +325,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32890856" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32890856" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -365,43 +369,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/operadores.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="74" column="78" selection-start-line="74" selection-start-column="78" selection-end-line="74" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Clase_Utilitario.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simulacion_servidores.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1710">
           <caret line="122" selection-start-line="122" selection-end-line="122" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Clase_Falla.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="56" column="35" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Dijstras(Normales).py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/generador_llamadas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-449">
+        <state relative-caret-position="-148">
           <caret line="10" selection-start-line="10" selection-end-line="10" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -409,13 +389,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Clase_Falla.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2476">
+          <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parametros.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-971" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Clase_Utilitario.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="141" column="22" lean-forward="true" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="22" />
+          <folding>
+            <marker date="1574351493100" expanded="true" signature="1664:1710" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/operadores.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="601">
+          <caret line="74" column="78" selection-start-line="74" selection-start-column="78" selection-end-line="74" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resultados.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="71" selection-start-line="11" selection-start-column="71" selection-end-line="11" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/simulacion_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5082">
+        <state relative-caret-position="-269">
+          <caret line="517" column="85" selection-start-line="517" selection-start-column="85" selection-end-line="517" selection-end-column="85" />
           <folding>
-            <element signature="e#487#1857#0" />
-            <element signature="e#1895#1917#0" />
-            <element signature="e#1960#1984#0" />
+            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#484#1854#0" />
+            <element signature="e#1892#1914#0" />
+            <element signature="e#1957#1981#0" />
           </folding>
         </state>
       </provider>

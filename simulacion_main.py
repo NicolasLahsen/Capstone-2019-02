@@ -515,6 +515,7 @@ def simulacion(parametros):
         # print(len(eventos_terminados))
         n += 1
         for tecnico in tecnicos:
+            print(f'Trabajo Utilitario {tecnico.id}: {tecnico.tiempo_trabajo / 5 / 60}')
             minutos_utilitarios_usados += tecnico.tiempo_trabajo
 
     eventos_terminados.sort(key=sortear_por_tiempo_total)
