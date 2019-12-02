@@ -118,7 +118,7 @@ def simulacion(parametros):
 
         while current_time < 7200:
 
-            # print(f'Tiempo actual: {current_time}')
+            print(f'Tiempo actual: {current_time}')
 
             '''for element in event_line:
                 print(element[1])'''
@@ -181,6 +181,7 @@ def simulacion(parametros):
                 event_line.sort(key=sortear_por_minutos)
 
             elif event_line[m][1] == 'asignar_tecnico':
+                # print('asignar tecnicos')
                 tecnicos_actuales = []
                 if current_time < int(event_line[m][0].minutos):
                     current_time = int(event_line[m][0].minutos)
@@ -197,6 +198,7 @@ def simulacion(parametros):
                     # print('No se necesitan dos tecnicos')
                 # Se revisan los tiempos de llegada de cada tecnico
                 tiempos_llegada = []
+                ocupados = 0
                 for tecnico in tecnicos_actuales:
                     if tecnico.tiempo_termino < current_time:
                         # si por alguna razon el tiempo termino es menor al tiempo actual, se actualiza
@@ -213,6 +215,8 @@ def simulacion(parametros):
                         else:
                             # si su tiempo termino es mayor a cuando termina su turno, se le pione un numero grande
                             # para que no se use mas tecnico
+                            print('Tecnico termina despues de fin de semana.')
+                            ocupados += 1
                             tecnico.tiempo_termino = 10000
                     # se calcula el tiempo de llegada al lugar de la falla
                     if tecnico.tiempo_termino in horario_punta_final:
@@ -227,6 +231,8 @@ def simulacion(parametros):
                         tiempos_llegada.append((tecnico, hora_arribo))
                     # print(f'Tiempo arribo tecnico {tecnico.id}: {hora_arribo} ({tecnico.tiempo_termino}), Fila: '
                           # f'{len(tecnico.lista_fallas)}')
+                if ocupados == len(tecnicos_actuales):
+                    current_time = 10000
                 if tiempos_llegada:
                     # si existe algun tecnico que la pueda tomar se entra aca
                     tecnico_id = min(tiempos_llegada, key=lambda t: t[1])

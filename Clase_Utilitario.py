@@ -67,6 +67,44 @@ class Utilitario:
 
     def generador_horas(self):
         minutos_permitidos = []
+        '''if self.tipo_turno == 3:
+            # turno de las 20 a las 6
+            for i in range(360):
+                minutos_permitidos.append(i)
+            for i in range(1230, 1800):
+                minutos_permitidos.append(i)
+            for i in range(2670, 3240):
+                minutos_permitidos.append(i)
+            for i in range(4110, 4680):
+                minutos_permitidos.append(i)
+            for i in range(5550, 6120):
+                minutos_permitidos.append(i)
+            for i in range(6990, 7201):
+                minutos_permitidos.append(i)
+        elif self.tipo_turno == 1:
+            # turno de las 6 a las 16
+            for i in range(390, 960):
+                minutos_permitidos.append(i)
+            for i in range(1830, 2400):
+                minutos_permitidos.append(i)
+            for i in range(3270, 3840):
+                minutos_permitidos.append(i)
+            for i in range(4710, 5280):
+                minutos_permitidos.append(i)
+            for i in range(6150, 6720):
+                minutos_permitidos.append(i)
+        else:
+            # turno de las 12 a las 20
+            for i in range(750, 1200):
+                minutos_permitidos.append(i)
+            for i in range(2190, 2640):
+                minutos_permitidos.append(i)
+            for i in range(3630, 4080):
+                minutos_permitidos.append(i)
+            for i in range(5070, 5520):
+                minutos_permitidos.append(i)
+            for i in range(6510, 6960):
+                minutos_permitidos.append(i)'''
         if self.tipo_turno == 3:
             # turno de las 20 a las 6
             for i in range(360):
