@@ -82,6 +82,12 @@ def simulacion(parametros):
         current_time = 0
         # tiempo actual que se usa para guardar los cambios de estado de los eventos
         tecnicos = instanciar_tecnicos()
+
+
+        utilitarios_dobles = 0
+        for tecnico in tecnicos:
+            if tecnico.cantidad_tecnicos == 2:
+                utilitarios_dobles += 1
         # se llama a la cantidad de tecnicos necesarios y se especifica su horario (ver archivo utilitario)
         operadores = instanciar_operadores()
         # lo mismo que los tecnicos, pero para operarios del callcenter (ver archivo operadores)
@@ -199,6 +205,7 @@ def simulacion(parametros):
                 # Se revisan los tiempos de llegada de cada tecnico
                 tiempos_llegada = []
                 ocupados = 0
+                ocupados_dobles = 0
                 for tecnico in tecnicos_actuales:
                     if tecnico.tiempo_termino < current_time:
                         # si por alguna razon el tiempo termino es menor al tiempo actual, se actualiza
@@ -216,6 +223,8 @@ def simulacion(parametros):
                             # si su tiempo termino es mayor a cuando termina su turno, se le pione un numero grande
                             # para que no se use mas tecnico
                             print('Tecnico termina despues de fin de semana.')
+                            if tecnico.cantidad_tecnicos == 2:
+                                ocupados_dobles += 1
                             ocupados += 1
                             tecnico.tiempo_termino = 10000
                     # se calcula el tiempo de llegada al lugar de la falla
@@ -233,6 +242,10 @@ def simulacion(parametros):
                           # f'{len(tecnico.lista_fallas)}')
                 if ocupados == len(tecnicos_actuales):
                     current_time = 10000
+                if ocupados_dobles == utilitarios_dobles:
+                    event_line.pop(m)
+                    event_line.sort(key=sortear_por_minutos)
+                    m = 0
                 if tiempos_llegada:
                     # si existe algun tecnico que la pueda tomar se entra aca
                     tecnico_id = min(tiempos_llegada, key=lambda t: t[1])
